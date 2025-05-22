@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Pywebview with Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="flex flex-col items-center justify-center h-screen bg-gray-100 p-10">
+        <h1 id="message" class="text-4xl font-bold text-blue-600 underline mb-4">
+            Hello World from Pywebview with Tailwind CSS!
+        </h1>
+        <button id="pyButton" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            Call Python
+        </button>
+        <p id="pyResponse" class="mt-4 text-sm text-gray-700"></p>
+    </div>
+
+    <script>
+        function updateMessage(newMessage) {
+            const messageElement = document.getElementById('message');
+            if (messageElement) {
+                messageElement.textContent = newMessage;
+            }
+        }
+
+        window.addEventListener('pywebviewready', function() {
+            const pyButton = document.getElementById('pyButton');
+            const pyResponseElement = document.getElementById('pyResponse');
+
+            pyButton.addEventListener('click', function() {
+                // Call the Python function exposed via js_api
+                window.pywebview.api.greet_python('Hello from JavaScript! 👋')
+                    .then(function(response) {
+                        // Handle the response from Python
+                        console.log("Python responded:", response);
+                        pyResponseElement.textContent = 'Python responded: ' + response;
+                    })
+                    .catch(function(error) {
+                        console.error("Error calling Python:", error);
+                        pyResponseElement.textContent = 'Error calling Python: ' + error;
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

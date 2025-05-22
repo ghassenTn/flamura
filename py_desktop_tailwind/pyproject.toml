@@ -1,0 +1,13 @@
+[project]
+name = "py_desktop_tailwind"
+version = "0.0.1"
+description = "A Python library for creating modern desktop applications with Tailwind CSS."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pywebview"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
